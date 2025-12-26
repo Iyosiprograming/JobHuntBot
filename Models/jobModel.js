@@ -1,12 +1,6 @@
 import mongoose from "mongoose";
 
 const jobSchema = new mongoose.Schema({
-  jobId: {
-    type: Number,
-    required: true,
-    unique: true, // prevents duplicate jobs
-    index: true
-  },
 
   source: {
     type: String,
@@ -41,12 +35,17 @@ const jobSchema = new mongoose.Schema({
 
   applyUrl: {
     type: String,
-    required: true
+    required: true,
+
   },
 
   sourceUrl: {
-    type: String
+    type: String,
+    unique: true,
+    sparse: true,
+    required: true
   },
+
 
   description: {
     type: String

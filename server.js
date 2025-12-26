@@ -1,8 +1,7 @@
 import express from 'express';
 import connectDB from './config/connectDB.js';
 import userRouter from './Routers/userRoute.js';
-import { fetchJobService } from './Service/fetchJobService.js';
-
+import { filterJobService } from './Service/filterJobService.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,7 +14,7 @@ const startServer = async () => {
             console.log(`Server is running on http://localhost:${PORT}`);
         });
         app.use('/api/users', userRouter);
-        fetchJobService();
+        filterJobService();
     } catch (error) {
         console.error("Error starting server:", error);
         }

@@ -3,6 +3,7 @@ import { htmlToText } from "html-to-text";
 import he from "he";
 
 const URL = "https://remoteok.com/api";
+const jobArray = [];
 
 /* Clean HTML job descriptions */
 function cleanDescription(rawHtml = "") {
@@ -22,19 +23,20 @@ function cleanDescription(rawHtml = "") {
 
 /* Normalize RemoteOK job */
 function normalizeJob(job) {
+  if (!job.url) return null; // skip jobs without URL
+
   return {
-    id: job.id,
-    company: job.company,
-    title: job.position,
+    company: job.company || "Unknown",
+    title: job.position || "No title",
     tags: job.tags || [],
     location: job.location || "Remote",
     salary:
       job.salary_min && job.salary_max
         ? `$${job.salary_min} - $${job.salary_max}`
         : "Not specified",
-    applyUrl: job.apply_url,
+    applyUrl: job.apply_url || job.url,
     url: job.url,
-    date: job.date,
+    date: job.date || new Date().toISOString(),
     description: cleanDescription(job.description)
   };
 }
@@ -44,9 +46,15 @@ export const fetchJobService = async () => {
   try {
     const { data } = await axios.get(URL);
 
-    // remove metadata row + normalize
-    const jobs = data.slice(1).map(normalizeJob);
-    console.log(jobs)
+    // Remove metadata row + normalize, filter out invalid jobs
+    const jobs = data
+      .slice(1)
+      .map(normalizeJob)
+      .filter(job => job !== null);
+
+    console.log(`Fetched ${jobs.length} jobs`);
+    jobArray.push(...jobs);
+
     return jobs;
   } catch (error) {
     console.error("Error fetching job data:", error.message);
