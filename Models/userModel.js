@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    Fillter: {
+    filter: {
 
         title: String,
         tags: [String],
