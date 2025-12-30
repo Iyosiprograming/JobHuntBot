@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./Config/dbConfig.js";
 import userRoute from "./Routes/userRoute.js";
-import { bot } from "./Bot/bot.js";
+import "./Bot/bot.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -12,21 +12,18 @@ app.use(express.json());
 app.use("/api/user", userRoute);
 
 const startServer = async () => {
-    try {
+  try {
+    // Connect to MongoDB
+    await connectDB();
 
-        await connectDB();
-        app.listen(PORT, () =>
-            console.log(`Server is listening on http://localhost:${PORT}`)
-        );
-        await bot.launch();
-        console.log("Telegram bot started");
+    // Start Express server
+    app.listen(PORT, () => 
+      console.log(`Server running on http://localhost:${PORT}`)
+    );
 
-        process.once("SIGINT", () => bot.stop("SIGINT"));
-        process.once("SIGTERM", () => bot.stop("SIGTERM"));
-
-    } catch (error) {
-        console.error("Error starting server:", error);
-    }
+  } catch (error) {
+    console.error("Error starting server:", error);
+  }
 };
 
 startServer();
