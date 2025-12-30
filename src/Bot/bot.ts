@@ -5,7 +5,7 @@ import { registerBot } from "./registerBot.js";
 dotenv.config();
 const BOT_TOKEN = process.env.BOT_TOKEN as string;
 // Create a single bot instance
-export const bot = new Telegraf(BOT_TOKEN || "8105619565:AAGQzbP8IAcP3kotyq3HcigUZ-lsQ3ZYeQI");
+export const bot = new Telegraf(BOT_TOKEN);
 
 registerBot();
 
