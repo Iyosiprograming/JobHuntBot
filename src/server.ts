@@ -2,7 +2,6 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./Config/dbConfig.js";
 import userRoute from "./Routes/userRoute.js";
-import startCronJob from "./Services/cronJobService.js";
 import "./Bot/bot.js";
 
 dotenv.config();
@@ -17,7 +16,6 @@ const startServer = async () => {
     // Connect to MongoDB
     await connectDB();
 
-    startCronJob();
     // Start Express server
     app.listen(PORT, () => 
       console.log(`Server running on http://localhost:${PORT}`)
