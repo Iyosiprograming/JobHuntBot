@@ -1,29 +1,23 @@
-import { Telegraf, Markup } from "telegraf";
-import dotenv from "dotenv";
+import { Markup } from "telegraf";
 
-dotenv.config();
-const bot = new Telegraf(process.env.BOT_TOKEN as string);
-
-
-export function jobUI(job:any) {
+export function jobUI(job: any) {
   const description =
-    job.content.length > 150
-      ? job.content.slice(0, 150) + "..."
-      : job.content;
+    job.content && job.content.length > 180
+      ? job.content.slice(0, 180) + "…"
+      : job.content || "No description available.";
 
   return {
     text: `
-<b>${job.title}</b>
+💼 <b>${job.title}</b>
 
-${description}
+📝 ${description}
 
-<i>${job.pubDate}</i>
+📅 <i>${job.pubDate || "Date not available"}</i>
 `,
     parse_mode: "HTML",
-    ...Markup.inlineKeyboard([
-      Markup.button.url("Apply Job", job.link)
-    ])
+    // Make sure reply_markup is the raw object
+    reply_markup: Markup.inlineKeyboard([
+      Markup.button.url("🚀 Apply Now", job.link)
+    ]).reply_markup // <-- key part
   };
 }
-
-

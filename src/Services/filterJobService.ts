@@ -33,11 +33,13 @@ const filterJobService = async () => {
       }).save();
 
       // ✅ SEND TELEGRAM MESSAGE
-      const msg = jobUI(job); 
+      const msg = jobUI(job);
+
       await bot.telegram.sendMessage(user.tgId, msg.text, {
-        parse_mode: msg.parse_mode as "Markdown",
-        reply_markup: msg.reply_markup
+        parse_mode: msg.parse_mode as any,
+        reply_markup: msg.reply_markup as any// this is now a plain JS object Telegram understands
       });
+
 
 
     }

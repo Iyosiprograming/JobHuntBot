@@ -2,16 +2,15 @@ import Parser from "rss-parser";
 import * as cheerio from "cheerio";
 
 const parser = new Parser();
-const jobArray = [];
 // List of feeds
 const FEED_URLS = [
     "https://weworkremotely.com/categories/remote-programming-jobs.rss",
     "https://remoteok.com/remote-jobs.rss",
     "https://weworkremotely.com/remote-jobs.rss",
-    "https://www.workanywhere.pro/rss/developer.xml"
 ];
 
 async function fetchJobs() {
+    const jobArray :any= [];
     for (const url of FEED_URLS) {
         console.log(`Fetching jobs from: ${url}\n`);
 
@@ -36,7 +35,7 @@ async function fetchJobs() {
                 content: cleanText
             })
         });
-
+        return jobArray
     }
 }
 

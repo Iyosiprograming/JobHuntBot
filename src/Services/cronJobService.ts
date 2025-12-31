@@ -1,11 +1,9 @@
 import cron from "node-cron";
-import filterJobService from "./filterJobService.js"
+import filterJobService from "./filterJobService.js";
 
-/**
- * Schedule job to run every 5 minutes
- */
+// run every 8 am in the moarning
 export function startCronJob() {
-  cron.schedule("*/5 * * * *", async () => {
+  cron.schedule("0 8 * * *", async () => { 
     console.log("Running job filter service...", new Date().toISOString());
     try {
       await filterJobService();
@@ -16,4 +14,4 @@ export function startCronJob() {
   });
 }
 
-export default startCronJob
+export default startCronJob;
