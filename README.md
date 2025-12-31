@@ -2,6 +2,9 @@
 
 Ever wish someone would **hunt remote tech jobs for you** while you sip coffee or binge your favorite series? Well, meet **JobHuntBot** — my personal little robot that does exactly that. It fetches jobs from multiple RSS feeds, filters them based on my keywords, and sends only the good stuff straight to my Telegram. No more endless scrolling. 
 
+![User Registration](images/image1.png)
+![Sent Jobs](images/image2.png)
+
 ## RSS Feeds
 
 - [We Work Remotely - Programming Jobs](https://weworkremotely.com/categories/remote-programming-jobs.rss)  
